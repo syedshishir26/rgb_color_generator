@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Picker-RGB</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+    <main class="min-h-screen flex text-center justify-center items-center bg-[255,210,260]">
+        <section class="w-1/2 rounded-xl bg-[#C7C8CC] p-5 md:p-10 flex flex-col gap-5 border p-5">
+            <div class="flex gap-5 text-red-500 font-bold">
+                <p>RED:</p>
+                <input id="red" type="range" min="0" value="0" max="255" class="range bg-red-400" />
+            </div>
+            <div class="flex gap-5 text-green-500 font-bold">
+                <p>RED:</p>
+                <input id="green" type="range" min="0" value="0" max="255" class="range bg-green-400" />
+            </div>
+            <div class="flex gap-5 text-blue-500 font-bold">
+                <p>RED:</p>
+                <input id="blue" type="range" min="0" value="0" max="255" class="range bg-blue-400" />
+            </div>
+
+            <div class="flex justify-center items-center text-black">
+                <h1 class="text-black">RGB code:(</h1> <h1 class="text-black" id="textForCopy"><span id="redText">0</span>,<span id="greenText">0</span>,<span
+                        id="blueText">0</span></h1><h1 class="text-black">)</h1>
+                <button class="font-bold ml-5" onclick="copyText()">Click to Copy</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let r = document.getElementById('red');
+        r.addEventListener('input', function () {
+            let red = r.value;
+            document.getElementById('redText').innerText = red;
+            updateBackgroundColor();
+        });
+
+        let g = document.getElementById('green');
+        g.addEventListener('input', function () {
+            let green = g.value;
+            document.getElementById('greenText').innerText = green;
+            updateBackgroundColor();
+        });
+
+        let b = document.getElementById('blue');
+        b.addEventListener('input', function () {
+            let blue = b.value;
+            document.getElementById('blueText').innerText = blue;
+            updateBackgroundColor();
+        });
+
+        function updateBackgroundColor() {
+            let red = document.getElementById('redText').innerText;
+            let green = document.getElementById('greenText').innerText;
+            let blue = document.getElementById('blueText').innerText;
+            let backGround = `rgb(${red},${green},${blue})`;
+
+            // You can use the 'backGround' value as needed, e.g., apply it as the background color to an element.
+            document.body.style.backgroundColor = backGround;
+        }
+        function copyText() {
+            // Get the text to copy
+            var textToCopy = `(${document.getElementById("textForCopy").innerText})`;
+
+            // Use the Clipboard API to copy the text
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    // You can provide feedback to the user, for example:
+                    alert("Text has been copied to the clipboard!");
+                })
+                .catch(err => {
+                    console.error('Unable to copy text to clipboard', err);
+                });
+        }
+
+    </script>
+</body>
+
+</html>
